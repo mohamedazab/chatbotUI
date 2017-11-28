@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/bot_image"
+        android:src="@drawable/bot"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+    />
+
+    <com.github.library.bubbleview.BubbleTextView
+        android:id="@+id/text_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/bot_image"
+        android:padding="20dp"
+        android:textColor="#000"
+        app:angle="7dp"
+        app:arrowCenter="true"
+        app:arrowHeight="10dp"
+        app:arrowLocation="left"
+        app:arrowPosition="10dp"
+        app:arrowWidth="9dp"
+        app:bubbleColor="#1e90ff"
+        tools:bubbleColor="@android:color/holo_blue_bright" />
+</RelativeLayout>
