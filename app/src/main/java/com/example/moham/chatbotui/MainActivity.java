@@ -34,7 +34,12 @@ public class MainActivity extends AppCompatActivity {
         editText = (EditText) findViewById(R.id.user_message);
         btn_send_message = (FloatingActionButton) findViewById(R.id.sendbtn);
         communications = new ArrayList<message>();
-
+        ///
+        Boolean welcome = true;
+        cb = new carpoolAPI();
+        cb.isWelcome(true);
+        cb.execute(communications);
+        //
         //////send button config
 
         btn_send_message.setOnClickListener(new View.OnClickListener() {
@@ -54,15 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Boolean welcome = true;
-        cb = new carpoolAPI();
-        cb.isWelcome(true);
-        cb.execute(communications);
-    }
-
+    
     private class carpoolAPI extends AsyncTask<List<message>, Boolean, String> {
         String stream = null;
         List<message> models;

@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/chatBotUI.iml" filepath="$PROJECT_DIR$/chatBotUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chatbotUI.iml" filepath="$PROJECT_DIR$/chatbotUI.iml" />
     </modules>
   </component>
 </project>
