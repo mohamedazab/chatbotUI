@@ -48,7 +48,29 @@ public class httpReqRes
             System.out.println("fail");
             return results;
         }
+        results[1]+=" "+setEmojis(results[1]);
         return results;
+    }
+
+    ////get emojis for messages
+    public static String  setEmojis(String s){
+        String[]bad=new String[]{" can't "," invalid "," no requests "," not "," didn't "};
+        int []sadArray=new int[]{0x1F622,0x1F620,0x1F624,0};
+        int []goodArray=new int[]{0x1F603,0x1F60A,0x1F64F,0};
+        int unicode=goodArray[(int)(Math.random()*3)];
+
+        for (int i = 0; i <bad.length ; i++) {
+            if(s.contains(bad[i])){
+             int random = (int )(Math.random() * 4);//random number 0--2
+            unicode=sadArray[random];
+
+            }
+        }
+
+        //do not always send them
+        String state= unicode==0?"":new String(Character.toChars(unicode));
+        return state;
+
     }
 
     public static String sendPostRequest(String StringUrl,String uuid,String message)
@@ -96,6 +118,6 @@ public class httpReqRes
             System.out.println("fail");
             return results;
         }
-        return results;
+        return results+" "+setEmojis(results);
     }
 }
