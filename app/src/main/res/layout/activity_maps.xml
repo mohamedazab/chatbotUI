@@ -1,8 +1,39 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    tools:context="com.example.moham.chatbotui.MapsActivity" />
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+    
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        tools:context="com.example.moham.chatbotui.MapsActivity"
+        class="com.google.android.gms.maps.SupportMapFragment"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="Choose your location"
+        android:id="@+id/mapViewTitle"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:alpha="0.95"/>
+
+    <Button
+        android:text="SendLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#359c5e"
+        android:alpha="0.35"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:padding="8dp"
+        android:layout_margin="5dp"
+        android:id="@+id/sendLocationBtn"
+        android:onClick="onSendLocationBtnClick"/>
+
+</RelativeLayout>
