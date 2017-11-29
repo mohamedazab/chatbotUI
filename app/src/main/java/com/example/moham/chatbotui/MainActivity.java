@@ -1,5 +1,7 @@
 package com.example.moham.chatbotui;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,17 +9,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.TreeMap;
 
 import android.os.AsyncTask;
 
 import extras.*;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     ListView listView;
     EditText editText;
@@ -27,24 +27,28 @@ public class MainActivity extends AppCompatActivity {
     carpoolAPI cb;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.list_of_message);
         editText = (EditText) findViewById(R.id.user_message);
         btn_send_message = (FloatingActionButton) findViewById(R.id.sendbtn);
         communications = new ArrayList<message>();
-        ///
+
+        //
         Boolean welcome = true;
         cb = new carpoolAPI();
         cb.isWelcome(true);
         cb.execute(communications);
         //
-        //////send button config
 
+        // Send button config
         btn_send_message.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(cb.isWelcome) {
+            public void onClick(View v)
+            {
+                if(cb.isWelcome)
+                {
                     cb.isWelcome(false);
                 }
                 communications.add(new message(editText.getText().toString(),false));
@@ -55,27 +59,61 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText("");
             }
         });
-
-
     }
 
-    
-    private class carpoolAPI extends AsyncTask<List<message>, Boolean, String> {
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        if(!editText.getText().toString().equals(""))
+        {
+            if (cb.isWelcome)
+            {
+                cb.isWelcome(false);
+            }
+            communications.add(new message(editText.getText().toString(), false));
+            modifiedListAdapter adapter = new modifiedListAdapter(communications, getApplicationContext());
+            listView.setAdapter(adapter);
+            cb = new carpoolAPI();
+            cb.execute(communications);
+            editText.setText("");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        String caller = data.getStringExtra("callingActivity");
+        if(caller.equals("MapsActivity"))
+        {
+            String lat = data.getStringExtra("latitude");
+            String lon = data.getStringExtra("longitude");
+
+            String destinationMessage = String.format("latitude %s longitude %s", lat, lon);
+            editText.setText(destinationMessage);
+        }
+    }
+
+    private class carpoolAPI extends AsyncTask<List<message>, Boolean, String>
+    {
         String stream = null;
         List<message> models;
         String text = editText.getText().toString();
-       // String uuid;
+        // String uuid;
         boolean isWelcome;
 
-        public void isWelcome(boolean x) {
+        public void isWelcome(boolean x)
+        {
             isWelcome = x;
         }
 
         @Override
-        protected String doInBackground(List<message>... params) {
-
+        protected String doInBackground(List<message>... params)
+        {
             String url = "https://warm-woodland-24900.herokuapp.com";
-            if (isWelcome) {
+            if (isWelcome)
+            {
                 url += "/welcome";
             } else {
                 url += "/chat";
@@ -84,7 +122,8 @@ public class MainActivity extends AppCompatActivity {
             httpReqRes httpDataHandler = new httpReqRes();
             String welcomestate[] = new String[]{"", "I am sleeping try again later"};
             String messageResult = "";
-            if (isWelcome) {
+            if (isWelcome)
+            {
                 welcomestate = httpDataHandler.welcomeMsg(url);
                 uuid = welcomestate[0];
                 messageResult = welcomestate[1];
@@ -95,14 +134,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(String s)
+        {
             models.add(new message(s, true));
             modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
             listView.setAdapter(adapter);
-
-
+            if(s.contains("Please enter a latitude and longitude.") || s.contains("Please enter the latitude and longitude") || s.contains("please enter your latitude and longitude"))
+            {
+                final Intent getMap = new Intent(getApplicationContext(), MapsActivity.class);
+                getMap.putExtra("callingActivity", "MainActivity");
+                final int result = 1;
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        startActivityForResult(getMap, result);
+                    }
+                }, 2000);
+            }
         }
     }
-
-
 }
