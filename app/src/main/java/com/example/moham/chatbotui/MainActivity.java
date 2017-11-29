@@ -92,6 +92,17 @@ public class MainActivity extends AppCompatActivity
 
             String destinationMessage = String.format("latitude %s longitude %s", lat, lon);
             editText.setText(destinationMessage);
+        }else if (caller.equals("TimeActivity"))
+        {
+            String hour = data.getStringExtra("hour");
+            String minute = data.getStringExtra("minute");
+            String day = data.getStringExtra("day");
+            String year = data.getStringExtra("year");
+            String month = data.getStringExtra("month");
+
+            String timeMessage = String.format("%s-%s-%s %s:%s", year, month, day, hour, minute);
+            editText.setText((timeMessage));
+
         }
     }
 
@@ -150,6 +161,19 @@ public class MainActivity extends AppCompatActivity
                     public void run()
                     {
                         startActivityForResult(getMap, result);
+                    }
+                }, 2000);
+            }else if (s.contains(". What time would you like to your ride to be?") || s.contains(" What time would you like to your ride to be?") || s.contains("What time would you like to your ride to be?"))
+            {
+                final Intent getTime = new Intent(getApplicationContext(), TimeActivity.class);
+                getTime.putExtra("callingActivity", "MainActivity");
+                final int result = 1;
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        startActivityForResult(getTime, result);
                     }
                 }, 2000);
             }
