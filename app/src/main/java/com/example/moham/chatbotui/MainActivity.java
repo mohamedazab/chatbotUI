@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity
                         startActivityForResult(getMap, result);
                     }
                 }, 2000);
-            }else if (s.contains(". What time would you like to your ride to be?") || s.contains(" What time would you like to your ride to be?") || s.contains("What time would you like to your ride to be?"))
+            }else if (s.contains("This time doesn't make sense! You need to choose a time in the future. I am not that dumb you know")||s.contains(". What time would you like to your ride to be?") ||s.contains("This is not a valid time format."))
             {
                 final Intent getTime = new Intent(getApplicationContext(), TimeActivity.class);
                 getTime.putExtra("callingActivity", "MainActivity");
