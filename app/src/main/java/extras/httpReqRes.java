@@ -54,7 +54,7 @@ public class httpReqRes
 
     ////get emojis for messages
     public static String  setEmojis(String s){
-        String[]bad=new String[]{" can't "," invalid "," no requests "," not "," didn't "};
+        String[]bad=new String[]{" can't "," invalid "," no requests "," not "," didn't ","wrong"};
         int []sadArray=new int[]{0x1F622,0x1F620,0x1F624,0};
         int []goodArray=new int[]{0x1F603,0x1F60A,0x1F64F,0};
         int unicode=goodArray[(int)(Math.random()*3)];

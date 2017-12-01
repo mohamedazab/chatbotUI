@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
         String caller = data.getStringExtra("callingActivity");
+        if(data.getStringExtra("backpressed")!=null){
+            return;
+        }
+
         if(caller.equals("MapsActivity"))
         {
             String lat = data.getStringExtra("latitude");
