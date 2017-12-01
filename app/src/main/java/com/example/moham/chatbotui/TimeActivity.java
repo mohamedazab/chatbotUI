@@ -47,6 +47,14 @@ public class TimeActivity extends AppCompatActivity implements
         });
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent goBack = new Intent();
+        goBack.putExtra("backpressed", "yes");
+        setResult(RESULT_OK, goBack);
+        finish();
+
+    }
     public void onSendTimeBtnClick(View view)
     {
         if(Integer.toString(minuteFinal) != null && Integer.toString(hourFinal) != null && Integer.toString(dayFinal) != null && Integer.toString(monthFinal) != null && Integer.toString(yearFinal) != null  )
