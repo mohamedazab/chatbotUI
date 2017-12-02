@@ -1,14 +1,20 @@
 package com.example.moham.chatbotui;
 
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.text.format.Time;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -16,18 +22,32 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-public class TimeActivity extends AppCompatActivity implements
+public class TimeActivity extends FragmentActivity implements
         DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
-   private Button pickTime;
-   private TextView result;
-   private int day, month, year, hour, minute;
-   private int dayFinal, monthFinal, yearFinal, hourFinal, minuteFinal;
+
+    private Button pickTime;
+    private TextView result;
+    private int day, month, year, hour, minute;
+    private int dayFinal, monthFinal, yearFinal, hourFinal, minuteFinal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time2);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+
+        getWindow().setLayout((int)(width*1),(int)(height*0.4));
+
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.gravity = Gravity.BOTTOM;
+        params.x=0;
+        params.y=20;
 
         pickTime = (Button) findViewById(R.id.pickTime);
         result = (TextView) findViewById(R.id.result);
@@ -41,7 +61,9 @@ public class TimeActivity extends AppCompatActivity implements
                 day = c.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(TimeActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         TimeActivity.this, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
             }
         });
@@ -82,7 +104,9 @@ public class TimeActivity extends AppCompatActivity implements
         minute = c.get(Calendar.MINUTE);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(TimeActivity.this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 TimeActivity.this, hour, minute, DateFormat.is24HourFormat(this));
+        timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         timePickerDialog.show();
     }
 
@@ -91,14 +115,11 @@ public class TimeActivity extends AppCompatActivity implements
         hourFinal = i;
         minuteFinal = i1;
 
-        result.setText("year: " + yearFinal + "\n" +
-                "month: " + monthFinal + "\n" +
-                "day: " + dayFinal + "\n" +
-                "hour: " + hourFinal + "\n" +
-                "minute: " + minuteFinal);
+        result.setText("Date: " + yearFinal + "/" +  monthFinal  + "/" + dayFinal + "\n" +
+                "Time " + hourFinal + "/" + minuteFinal);
     }
 
 
 
-}
 
+}
