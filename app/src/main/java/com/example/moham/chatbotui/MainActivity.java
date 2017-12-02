@@ -2,7 +2,9 @@ package com.example.moham.chatbotui;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity
     carpoolAPI cb;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onResume()
+    public void onResume()
     {
         super.onResume();
         if(!editText.getText().toString().equals(""))
@@ -81,10 +83,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
         String caller = data.getStringExtra("callingActivity");
+        if(data.getStringExtra("backpressed")!=null){
+                        return;
+                    }
         if(caller.equals("MapsActivity"))
         {
             String lat = data.getStringExtra("latitude");
@@ -102,7 +107,6 @@ public class MainActivity extends AppCompatActivity
 
             String timeMessage = String.format("%s-%s-%s %s:%s", year, month, day, hour, minute);
             editText.setText((timeMessage));
-
         }
     }
 
@@ -163,7 +167,7 @@ public class MainActivity extends AppCompatActivity
                         startActivityForResult(getMap, result);
                     }
                 }, 2000);
-            }else if (s.contains("This time doesn't make sense! You need to choose a time in the future. I am not that dumb you know")||s.contains(". What time would you like to your ride to be?") ||s.contains("This is not a valid time format."))
+            }else if (s.contains("This time doesn't make sense! You need to choose a time in the future")||s.contains(". What time would you like to your ride to be?") ||s.contains("This is not a valid time format."))
             {
                 final Intent getTime = new Intent(getApplicationContext(), TimeActivity.class);
                 getTime.putExtra("callingActivity", "MainActivity");
