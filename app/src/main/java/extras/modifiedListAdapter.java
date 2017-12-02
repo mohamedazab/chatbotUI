@@ -51,13 +51,20 @@ public class modifiedListAdapter extends BaseAdapter
         View v=convertView;
         if(v ==null)
         {
-            if(communications.get(index).isReceived())
-                v = layoutInflater.inflate(R.layout.messages_recieved,null);
-            else
+            if(communications.get(index).getMessageText().equals("..."))
+                v = layoutInflater.inflate(R.layout.message_pending, null);
+            else if(communications.get(index).isReceived()) {
+                v = layoutInflater.inflate(R.layout.messages_recieved, null);
+                BubbleTextView text_message = (BubbleTextView) v.findViewById(R.id.text_message);
+                text_message.setText(communications.get(index).getMessageText());
+            }else{
                 v = layoutInflater.inflate(R.layout.messages_sent,null);
+                BubbleTextView text_message = (BubbleTextView)v.findViewById(R.id.text_message);
+                text_message.setText(communications.get(index).getMessageText());
+            }
         }
-        BubbleTextView text_message = (BubbleTextView)v.findViewById(R.id.text_message);
-        text_message.setText(communications.get(index).getMessageText());
+//        BubbleTextView text_message = (BubbleTextView)v.findViewById(R.id.text_message);
+//        text_message.setText(communications.get(index).getMessageText());
         return v;
     }
 }

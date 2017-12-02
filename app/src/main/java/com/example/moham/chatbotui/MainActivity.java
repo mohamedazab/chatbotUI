@@ -2,9 +2,7 @@ package com.example.moham.chatbotui;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -135,6 +133,9 @@ public class MainActivity extends AppCompatActivity
                 url += "/chat";
             }
             models = params[0];
+            models.add(new message("...", true));
+            modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
+            listView.setAdapter(adapter);
             httpReqRes httpDataHandler = new httpReqRes();
             String welcomestate[] = new String[]{"", "I am sleeping try again later"};
             String messageResult = "";
@@ -152,6 +153,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String s)
         {
+            models.remove(models.size() - 1);
             models.add(new message(s, true));
             modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
             listView.setAdapter(adapter);

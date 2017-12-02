@@ -30,14 +30,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         mapListener = new MapListener();
     }
-        @Override
-     public void onBackPressed(){
-            Intent goBack = new Intent();
-            goBack.putExtra("backpressed", "yes");
-            setResult(RESULT_OK, goBack);
-            finish();
 
-            }
+    @Override
+    public void onBackPressed(){
+        Intent goBack = new Intent();
+        goBack.putExtra("backpressed", "yes");
+        setResult(RESULT_OK, goBack);
+        finish();
+    }
 
 
     // Callback function called when map fragment is loaded within the application. Note that it only runs on android phones with Google Play Services installed and updated.
