@@ -39,6 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
 
+
     // Callback function called when map fragment is loaded within the application. Note that it only runs on android phones with Google Play Services installed and updated.
     @Override
     public void onMapReady(GoogleMap googleMap)
