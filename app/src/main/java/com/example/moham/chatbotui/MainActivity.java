@@ -2,10 +2,21 @@ package com.example.moham.chatbotui;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -19,12 +30,48 @@ import extras.*;
 public class MainActivity extends AppCompatActivity
 {
 
+
     ListView listView;
     EditText editText;
     List<message> communications;
     FloatingActionButton btn_send_message;
     String uuid;
     carpoolAPI cb;
+    public boolean onCreateOptionsMenu(Menu menu){
+
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        String s=editText.getText().toString();
+        switch(item.getItemId()){
+            case R.id.notify:
+                editText.setText("notify");break;
+
+
+            case R.id.help:
+                editText.setText("What can you do?");break;
+
+
+            default: return super.onOptionsItemSelected(item);
+        }
+        cb = new carpoolAPI();
+        cb.execute(communications);
+        editText.setText(s);
+        return true;
+
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        menu.findItem(R.id.notify).setEnabled(true);
+        menu.findItem(R.id.help).setEnabled(true);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -35,6 +82,13 @@ public class MainActivity extends AppCompatActivity
         editText = (EditText) findViewById(R.id.user_message);
         btn_send_message = (FloatingActionButton) findViewById(R.id.sendbtn);
         communications = new ArrayList<message>();
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+
 
         //
         Boolean welcome = true;
@@ -59,6 +113,7 @@ public class MainActivity extends AppCompatActivity
                 editText.setText("");
             }
         });
+
     }
 
     @Override
@@ -86,9 +141,8 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         String caller = data.getStringExtra("callingActivity");
         if(data.getStringExtra("backpressed")!=null){
-           return;
-         }
-
+                        return;
+                    }
         if(caller.equals("MapsActivity"))
         {
             String lat = data.getStringExtra("latitude");
@@ -133,9 +187,6 @@ public class MainActivity extends AppCompatActivity
                 url += "/chat";
             }
             models = params[0];
-            models.add(new message("...", true));
-            modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
-            listView.setAdapter(adapter);
             httpReqRes httpDataHandler = new httpReqRes();
             String welcomestate[] = new String[]{"", "I am sleeping try again later"};
             String messageResult = "";
@@ -153,7 +204,6 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String s)
         {
-            models.remove(models.size() - 1);
             models.add(new message(s, true));
             modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
             listView.setAdapter(adapter);

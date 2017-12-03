@@ -31,7 +31,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
 
-            android:id="@+id/iv"                                                        
+            android:id="@+id/iv"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_gravity="center"
