@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
             default: return super.onOptionsItemSelected(item);
         }
         cb = new carpoolAPI();
+        loadGIF();
         cb.execute(communications);
         editText.setText(s);
         return true;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity
         Boolean welcome = true;
         cb = new carpoolAPI();
         cb.isWelcome(true);
+        loadGIF();
         cb.execute(communications);
         //
 
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity
                     cb.isWelcome(false);
                 }
                 communications.add(new message(editText.getText().toString(),false));
+                loadGIF();
                 modifiedListAdapter adapter = new modifiedListAdapter(communications, getApplicationContext());
                 listView.setAdapter(adapter);
                 cb = new carpoolAPI();
@@ -117,9 +120,10 @@ public class MainActivity extends AppCompatActivity
             {
                 cb.isWelcome(false);
             }
-            communications.add(new message(editText.getText().toString(), false));
-            modifiedListAdapter adapter = new modifiedListAdapter(communications, getApplicationContext());
-            listView.setAdapter(adapter);
+            //communications.add(new message(editText.getText().toString(), false));
+           // modifiedListAdapter adapter = new modifiedListAdapter(communications, getApplicationContext());
+           // listView.setAdapter(adapter);
+            loadGIF();
             cb = new carpoolAPI();
             cb.execute(communications);
             editText.setText("");
@@ -152,7 +156,16 @@ public class MainActivity extends AppCompatActivity
             String timeMessage = String.format("%s-%s-%s %s:%s", year, month, day, hour, minute);
             editText.setText((timeMessage));
         }
+
     }
+    private void loadGIF(){
+        //loading GIF
+        communications.add(new message("...", true));
+        modifiedListAdapter adapter = new modifiedListAdapter(communications, getApplicationContext());
+        listView.setAdapter(adapter);
+        //
+    }
+
 
     private class carpoolAPI extends AsyncTask<List<message>, Boolean, String>
     {
@@ -178,11 +191,7 @@ public class MainActivity extends AppCompatActivity
                 url += "/chat";
             }
             models = params[0];
-            //loading GIF
-            models.add(new message("...", true));
-            modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
-            listView.setAdapter(adapter);
-            //
+
             httpReqRes httpDataHandler = new httpReqRes();
             String welcomeState[] = new String[]{"", "I am sleeping try again later"};
             String messageResult = "";
@@ -191,6 +200,7 @@ public class MainActivity extends AppCompatActivity
                 welcomeState = httpDataHandler.welcomeMsg(url);
                 uuid = welcomeState[0];
                 messageResult = welcomeState[1];
+                //TODO activity for name and ID
             } else {
                 messageResult = httpDataHandler.sendPostRequest(url, uuid, text);
             }
@@ -200,12 +210,13 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String s)
         {   //remove ...
+            Log.e("notif",models.toString()+ " ** "+models.size());
             models.remove(models.size() - 1);
             //
             models.add(new message(s, true));
             modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
             listView.setAdapter(adapter);
-            if(s.contains("Please enter a latitude and longitude.") || s.contains("Please enter the latitude and longitude") || s.contains("please enter your latitude and longitude"))
+            if(s.contains("Please tell me your desired location"))
             {
                 final Intent getMap = new Intent(getApplicationContext(), MapsActivity.class);
                 getMap.putExtra("callingActivity", "MainActivity");
