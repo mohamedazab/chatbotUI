@@ -45,7 +45,10 @@
             android:name=".TimeActivity"
             android:theme="@style/AppTheme.date_pg" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".FAQActivity"></activity>
+        <activity
+            android:name=".NotifyActivity"
+            android:label="@string/title_activity_notify"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

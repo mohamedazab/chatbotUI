@@ -2,12 +2,21 @@ package com.example.moham.chatbotui;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -21,12 +30,43 @@ import extras.*;
 public class MainActivity extends AppCompatActivity
 {
 
+
     ListView listView;
     EditText editText;
     List<message> communications;
     FloatingActionButton btn_send_message;
     String uuid;
     carpoolAPI cb;
+    public boolean onCreateOptionsMenu(Menu menu){
+
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch(item.getItemId()){
+            case R.id.notify:
+                editText.setText("notify");
+                return true;
+
+            case R.id.help:
+                editText.setText("What can I do?");
+                return true;
+
+            default: return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        menu.findItem(R.id.notify).setEnabled(true);
+        menu.findItem(R.id.help).setEnabled(true);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -37,6 +77,13 @@ public class MainActivity extends AppCompatActivity
         editText = (EditText) findViewById(R.id.user_message);
         btn_send_message = (FloatingActionButton) findViewById(R.id.sendbtn);
         communications = new ArrayList<message>();
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+
 
         //
         Boolean welcome = true;
@@ -61,6 +108,7 @@ public class MainActivity extends AppCompatActivity
                 editText.setText("");
             }
         });
+
     }
 
     @Override
