@@ -2,21 +2,14 @@ package com.example.moham.chatbotui;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -29,8 +22,6 @@ import extras.*;
 
 public class MainActivity extends AppCompatActivity
 {
-
-
     ListView listView;
     EditText editText;
     List<message> communications;
@@ -188,13 +179,13 @@ public class MainActivity extends AppCompatActivity
             }
             models = params[0];
             httpReqRes httpDataHandler = new httpReqRes();
-            String welcomestate[] = new String[]{"", "I am sleeping try again later"};
+            String welcomeState[] = new String[]{"", "I am sleeping try again later"};
             String messageResult = "";
             if (isWelcome)
             {
-                welcomestate = httpDataHandler.welcomeMsg(url);
-                uuid = welcomestate[0];
-                messageResult = welcomestate[1];
+                welcomeState = httpDataHandler.welcomeMsg(url);
+                uuid = welcomeState[0];
+                messageResult = welcomeState[1];
             } else {
                 messageResult = httpDataHandler.sendPostRequest(url, uuid, text);
             }
@@ -234,6 +225,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 }, 2000);
             }
+            Log.e("size: ",models.size()+" ");
         }
     }
 }

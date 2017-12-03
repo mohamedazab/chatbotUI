@@ -25,15 +25,18 @@
         android:paddingRight="16dp"
         android:paddingTop="50dp"
         tools:context="com.example.moham.chatbotui.MainActivity">
+
         <android.support.design.widget.FloatingActionButton
-            android:clickable="true"
-            android:src="@drawable/ic_sendbtn"
             android:id="@+id/sendbtn"
-            android:tint="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/ic_sendbtn"
+            android:tint="@android:color/white" />
 
         <ListView
             android:id="@+id/list_of_message"
