@@ -178,6 +178,11 @@ public class MainActivity extends AppCompatActivity
                 url += "/chat";
             }
             models = params[0];
+            //loading GIF
+            models.add(new message("...", true));
+            modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
+            listView.setAdapter(adapter);
+            //
             httpReqRes httpDataHandler = new httpReqRes();
             String welcomeState[] = new String[]{"", "I am sleeping try again later"};
             String messageResult = "";
@@ -194,7 +199,9 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected void onPostExecute(String s)
-        {
+        {   //remove ...
+            models.remove(models.size() - 1);
+            //
             models.add(new message(s, true));
             modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
             listView.setAdapter(adapter);
