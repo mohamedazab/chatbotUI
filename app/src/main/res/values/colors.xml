@@ -11,7 +11,7 @@
     <color name="global_color_green_primary_dark">#388e3c</color>
     <color name="global_color_green_accent">#ffc107</color>
     <color name="global_color_green_control_activated">#ffc107</color>
-    <color name="colorPrimary1">#F44336</color>
+    <color name="colorPrimary1">#f44336</color>
     <color name="colorPrimaryDark2">#D32F2F</color>
     <color name="colorPrimaryLight">#FFCDD2</color>
     <color name="colorAccent1">#7C4DFF</color>
