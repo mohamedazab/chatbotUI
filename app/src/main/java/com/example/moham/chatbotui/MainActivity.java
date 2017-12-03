@@ -45,18 +45,23 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-
+        String s=editText.getText().toString();
         switch(item.getItemId()){
             case R.id.notify:
-                editText.setText("notify");
-                return true;
+                editText.setText("notify");break;
+
 
             case R.id.help:
-                editText.setText("What can I do?");
-                return true;
+                editText.setText("What can you do?");break;
+
 
             default: return super.onOptionsItemSelected(item);
         }
+        cb = new carpoolAPI();
+        cb.execute(communications);
+        editText.setText(s);
+        return true;
+
     }
 
     @Override

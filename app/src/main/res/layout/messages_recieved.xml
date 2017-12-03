@@ -20,7 +20,6 @@
         android:padding="20dp"
         android:textColor="#000"
         app:angle="7dp"
-        app:arrowCenter="true"
         app:arrowHeight="10dp"
         app:arrowLocation="left"
         app:arrowPosition="10dp"
