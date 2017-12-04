@@ -28,32 +28,34 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton btn_send_message;
     String uuid;
     carpoolAPI cb;
-    public boolean onCreateOptionsMenu(Menu menu){
-
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        String s=editText.getText().toString();
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        String s = editText.getText().toString();
         switch(item.getItemId()){
             case R.id.notify:
-                editText.setText("notify");break;
-
-
+                editText.setText("notify");
+                btn_send_message.performClick();
+                break;
             case R.id.help:
-                editText.setText("What can you do?");break;
-
-
-            default: return super.onOptionsItemSelected(item);
+                editText.setText("What can you do?");
+                btn_send_message.performClick();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
         cb = new carpoolAPI();
         loadGIF();
         cb.execute(communications);
+
         editText.setText(s);
         return true;
-
     }
 
     @Override
@@ -62,8 +64,6 @@ public class MainActivity extends AppCompatActivity
         menu.findItem(R.id.help).setEnabled(true);
         return super.onPrepareOptionsMenu(menu);
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -75,12 +75,8 @@ public class MainActivity extends AppCompatActivity
         btn_send_message = (FloatingActionButton) findViewById(R.id.sendbtn);
         communications = new ArrayList<message>();
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
 
         //
         Boolean welcome = true;
@@ -107,7 +103,6 @@ public class MainActivity extends AppCompatActivity
                 editText.setText("");
             }
         });
-
     }
 
     @Override
