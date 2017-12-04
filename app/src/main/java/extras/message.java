@@ -34,4 +34,9 @@ public class message
     {
         return messageText;
     }
+
+    @Override
+    public String toString() {
+        return "{ "+getMessageText()+" , "+received+" }";
+    }
 }

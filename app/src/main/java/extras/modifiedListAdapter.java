@@ -10,11 +10,9 @@ import android.widget.EditText;
 import com.example.moham.chatbotui.R;
 import com.github.library.bubbleview.BubbleTextView;
 
-import java.net.ContentHandler;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +28,14 @@ public class modifiedListAdapter extends BaseAdapter {
         this.communications = messages;
         //this.context=context;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public List<message> getCommunications() {
+        return communications;
+    }
+
+    public void setCommunications(List<message> communications) {
+        this.communications = communications;
     }
 
     @Override
@@ -49,6 +55,7 @@ public class modifiedListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int index, View convertView, ViewGroup parent) {
+        convertView=null;
         View v = convertView;
         //date time for messages
         DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
