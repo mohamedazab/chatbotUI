@@ -17,14 +17,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:text="Choose your location"
+        android:text="@string/maps_title"
         android:id="@+id/mapViewTitle"
         android:textAlignment="center"
         android:textSize="25sp"
         android:alpha="0.95"/>
 
     <Button
-        android:text="SendLocation"
+        android:text="@string/maps_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#359c5e"

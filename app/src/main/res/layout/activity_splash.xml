@@ -27,7 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
 
@@ -48,7 +50,11 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:inputType="none"
-            android:text="GUC Carpool"
+            android:shadowColor="#000000"
+            android:shadowDx="-2.0"
+            android:shadowDy="-2.0"
+            android:shadowRadius="2.0"
+            android:text="@string/splash_title"
             android:textColor="@color/blueDark"
             android:textSize="40sp"
             android:textStyle="bold" />
