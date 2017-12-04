@@ -63,18 +63,17 @@ public class modifiedListAdapter extends BaseAdapter {
                 text_message.setText(communications.get(index).getMessageText());
                 EditText messageTime = (EditText) v.findViewById(R.id.messageTime);
                 messageTime.setText(date);
+                messageTime.setEnabled(false);
             } else {
                 v = layoutInflater.inflate(R.layout.messages_sent, null);
                 BubbleTextView text_message = (BubbleTextView) v.findViewById(R.id.text_message);
                 text_message.setText(communications.get(index).getMessageText());
                 EditText messageTime = (EditText) v.findViewById(R.id.messageTime);
                 messageTime.setText(date);
+                messageTime.setEnabled(false);
 
             }
         }
-
-//        BubbleTextView text_message = (BubbleTextView)v.findViewById(R.id.text_message);
-//        text_message.setText(communications.get(index).getMessageText());
         return v;
     }
 }

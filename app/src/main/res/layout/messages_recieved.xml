@@ -34,7 +34,7 @@
         android:layout_marginStart="12dp"
         android:backgroundTint="@color/colorPrimary1"
         android:ems="10"
-        android:inputType="time"
+        android:inputType="none"
         android:text="time"
         android:textColor="@color/colorPrimary1"
         android:textSize="10dp"  />
