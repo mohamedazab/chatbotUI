@@ -36,6 +36,16 @@ public class message
     }
 
     @Override
+    public boolean equals(Object obj)
+    {
+        if(!(obj instanceof message))
+        {
+            return false;
+        }
+        return ((message) obj).messageText.equals(this.messageText) && ((message) obj).received == this.received;
+    }
+
+    @Override
     public String toString() {
         return "{ "+getMessageText()+" , "+received+" }";
     }

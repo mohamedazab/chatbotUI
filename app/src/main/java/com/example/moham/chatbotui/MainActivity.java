@@ -213,12 +213,21 @@ public class MainActivity extends AppCompatActivity
         protected void onPostExecute(String s)
         {   //remove ...
             Log.e("notif",models.toString()+ " ** "+models.size());
-            models.remove(models.size() - 1);
+            message tmp = new message("...", true);
+            int i;
+            for(i = 0 ; i < models.size() ; i++)
+            {
+                if(models.get(i).equals(tmp))
+                {
+                    models.remove(i);
+                    break;
+                }
+            }
             //
             if(s.contains("but your session has expired. Please log in and try again.")){
                 recreate();
             }
-            models.add(new message(s, true));
+            models.add(i, new message(s, true));
             modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
             listView.setAdapter(adapter);
             if(s.contains("Please tell me your desired location"))
