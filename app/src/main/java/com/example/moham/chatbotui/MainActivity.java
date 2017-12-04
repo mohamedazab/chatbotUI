@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity
             Log.e("notif",models.toString()+ " ** "+models.size());
             models.remove(models.size() - 1);
             //
-            if(s.contains("but your session has expired. Please log in and try again.")){
+            if(s.contains("but your session has expired. Please log in and try again.")||s.contains("Something went wrong. You have to give me both your name and your GUC-ID")){
                 recreate();
             }
             models.add(new message(s, true));
