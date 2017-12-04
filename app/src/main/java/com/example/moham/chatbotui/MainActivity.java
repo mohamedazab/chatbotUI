@@ -215,6 +215,9 @@ public class MainActivity extends AppCompatActivity
             Log.e("notif",models.toString()+ " ** "+models.size());
             models.remove(models.size() - 1);
             //
+            if(s.contains("but your session has expired. Please log in and try again.")){
+                recreate();
+            }
             models.add(new message(s, true));
             modifiedListAdapter adapter = new modifiedListAdapter(models, getApplicationContext());
             listView.setAdapter(adapter);
