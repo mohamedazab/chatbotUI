@@ -28,34 +28,32 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton btn_send_message;
     String uuid;
     carpoolAPI cb;
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu){
+
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        String s = editText.getText().toString();
+    public boolean onOptionsItemSelected(MenuItem item){
+        String s=editText.getText().toString();
         switch(item.getItemId()){
             case R.id.notify:
-                editText.setText("notify");
-                btn_send_message.performClick();
-                break;
+                editText.setText("notify");break;
+
+
             case R.id.help:
-                editText.setText("What can you do?");
-                btn_send_message.performClick();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+                editText.setText("What can you do?");break;
+
+
+            default: return super.onOptionsItemSelected(item);
         }
         cb = new carpoolAPI();
         loadGIF();
         cb.execute(communications);
-
         editText.setText(s);
         return true;
+
     }
 
     @Override
@@ -64,6 +62,8 @@ public class MainActivity extends AppCompatActivity
         menu.findItem(R.id.help).setEnabled(true);
         return super.onPrepareOptionsMenu(menu);
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -75,8 +75,12 @@ public class MainActivity extends AppCompatActivity
         btn_send_message = (FloatingActionButton) findViewById(R.id.sendbtn);
         communications = new ArrayList<message>();
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
 
         //
         Boolean welcome = true;
@@ -94,6 +98,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     cb.isWelcome(false);
                 }
+                if(editText.getText().length()<1)return;
                 communications.add(new message(editText.getText().toString(),false));
                 loadGIF();
                 modifiedListAdapter adapter = new modifiedListAdapter(communications, getApplicationContext());
@@ -103,6 +108,7 @@ public class MainActivity extends AppCompatActivity
                 editText.setText("");
             }
         });
+
     }
 
     @Override
@@ -116,8 +122,8 @@ public class MainActivity extends AppCompatActivity
                 cb.isWelcome(false);
             }
             //communications.add(new message(editText.getText().toString(), false));
-           // modifiedListAdapter adapter = new modifiedListAdapter(communications, getApplicationContext());
-           // listView.setAdapter(adapter);
+            // modifiedListAdapter adapter = new modifiedListAdapter(communications, getApplicationContext());
+            // listView.setAdapter(adapter);
             loadGIF();
             cb = new carpoolAPI();
             cb.execute(communications);
@@ -131,8 +137,8 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         String caller = data.getStringExtra("callingActivity");
         if(data.getStringExtra("backpressed")!=null){
-                        return;
-                    }
+            return;
+        }
         if(caller.equals("MapsActivity"))
         {
             String lat = data.getStringExtra("latitude");
