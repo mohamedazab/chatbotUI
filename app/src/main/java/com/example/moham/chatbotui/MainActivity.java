@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity
         return super.onPrepareOptionsMenu(menu);
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -75,12 +73,8 @@ public class MainActivity extends AppCompatActivity
         btn_send_message = (FloatingActionButton) findViewById(R.id.sendbtn);
         communications = new ArrayList<message>();
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
 
         //
         Boolean welcome = true;
@@ -136,18 +130,17 @@ public class MainActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
         String caller = data.getStringExtra("callingActivity");
-        if(data.getStringExtra("backpressed")!=null){
+        if(data.getStringExtra("backpressed")!=null)
+        {
             return;
         }
-        if(caller.equals("MapsActivity"))
-        {
+        if(caller.equals("MapsActivity")){
             String lat = data.getStringExtra("latitude");
             String lon = data.getStringExtra("longitude");
 
             String destinationMessage = String.format("latitude %s longitude %s", lat, lon);
             editText.setText(destinationMessage);
-        }else if (caller.equals("TimeActivity"))
-        {
+        }else if (caller.equals("TimeActivity")){
             String hour = data.getStringExtra("hour");
             String minute = data.getStringExtra("minute");
             String day = data.getStringExtra("day");
@@ -156,8 +149,12 @@ public class MainActivity extends AppCompatActivity
 
             String timeMessage = String.format("%s-%s-%s %s:%s", year, month, day, hour, minute);
             editText.setText((timeMessage));
+        }else if(caller.equals("LoginActivity")){
+            String id = data.getStringExtra("id");
+            String name = data.getStringExtra("name");
+            String login = String.format("%s:%s", id, name);
+            editText.setText(login);
         }
-
     }
     private void loadGIF(){
         //loading GIF
@@ -202,6 +199,10 @@ public class MainActivity extends AppCompatActivity
                 uuid = welcomeState[0];
                 messageResult = welcomeState[1];
                 //TODO activity for name and ID
+                final Intent getLogin = new Intent(getApplicationContext(), LoginActivity.class);
+                getLogin.putExtra("callingActivity","MainActivity");
+                final int result = 1;
+                startActivityForResult(getLogin, result);
             } else {
                 messageResult = httpDataHandler.sendPostRequest(url, uuid, text);
             }
