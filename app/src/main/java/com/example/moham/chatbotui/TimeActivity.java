@@ -116,7 +116,7 @@ public class TimeActivity extends FragmentActivity implements
         minuteFinal = i1;
 
         result.setText("Date: " + yearFinal + "/" +  monthFinal  + "/" + dayFinal + "\n" +
-                "Time " + hourFinal + "/" + minuteFinal);
+                "Time " + hourFinal + ":" + minuteFinal);
     }
 
 
