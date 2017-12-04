@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }
             //
-            if(s.contains("but your session has expired. Please log in and try again.")){
+            if(s.contains("but your session has expired. Please log in and try again.")||s.contains("Something went wrong. You have to give me both your name and your GUC-ID")){
                 recreate();
             }
             models.add(i, new message(s, true));
