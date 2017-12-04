@@ -24,4 +24,19 @@
         app:arrowWidth="9dp"
         app:bubbleColor="#C9C9C9"
         tools:bubbleColor="@android:color/holo_blue_bright" />
+
+    <EditText
+        android:id="@+id/messageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/bot_image"
+        android:layout_below="@+id/text_message"
+        android:layout_marginStart="12dp"
+        android:backgroundTint="@color/colorPrimary1"
+        android:ems="10"
+        android:inputType="time"
+        android:text="time"
+        android:textColor="@color/colorPrimary1"
+        android:textSize="10dp"  />
+
 </RelativeLayout>

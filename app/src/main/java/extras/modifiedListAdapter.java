@@ -5,11 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 
 import com.example.moham.chatbotui.R;
 import com.github.library.bubbleview.BubbleTextView;
 
 import java.net.ContentHandler;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +50,10 @@ public class modifiedListAdapter extends BaseAdapter {
     @Override
     public View getView(int index, View convertView, ViewGroup parent) {
         View v = convertView;
+        //date time for messages
+        DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
+        String date = df.format(Calendar.getInstance().getTime());
+        //
         if (v == null) {
             if (communications.get(index).getMessageText().equals("..."))
                 v = layoutInflater.inflate(R.layout.message_pending, null);
@@ -52,10 +61,15 @@ public class modifiedListAdapter extends BaseAdapter {
                 v = layoutInflater.inflate(R.layout.messages_recieved, null);
                 BubbleTextView text_message = (BubbleTextView) v.findViewById(R.id.text_message);
                 text_message.setText(communications.get(index).getMessageText());
+                EditText messageTime = (EditText) v.findViewById(R.id.messageTime);
+                messageTime.setText(date);
             } else {
                 v = layoutInflater.inflate(R.layout.messages_sent, null);
                 BubbleTextView text_message = (BubbleTextView) v.findViewById(R.id.text_message);
                 text_message.setText(communications.get(index).getMessageText());
+                EditText messageTime = (EditText) v.findViewById(R.id.messageTime);
+                messageTime.setText(date);
+
             }
         }
 

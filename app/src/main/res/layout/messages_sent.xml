@@ -19,4 +19,17 @@
         app:arrowPosition="10dp"
         app:arrowWidth="9dp"
         app:bubbleColor="#D63232" />
+    <EditText
+        android:id="@+id/messageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/text_message"
+        android:layout_marginStart="12dp"
+        android:backgroundTint="@color/colorPrimary1"
+        android:ems="10"
+        android:inputType="time"
+        android:text="time"
+        android:textColor="@color/colorPrimary1"
+        android:textSize="10dp"  />
 </RelativeLayout>
