@@ -16,4 +16,6 @@
     <string name="maps_title">Choose your location</string>
     <string name="maps_button">SendLocation</string>
     <string name="splash_title">GUC Carpool</string>
+    <string name="date_pick_button">Pick Date</string>
+    <string name="submit_date_button">Ok</string>
 </resources>
