@@ -40,14 +40,17 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".LoginActivity"
-            android:label="Login" />
+            android:label="Login"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".TimeActivity"
             android:theme="@style/AppTheme.date_pg" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"/>
     </application>
 
 </manifest>
